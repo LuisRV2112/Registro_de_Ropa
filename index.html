@@ -37,7 +37,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== HEADER ===== */
+  
     header {
       position: sticky;
       top: 0;
@@ -61,7 +61,7 @@
 
     .header-actions { display: flex; gap: 10px; }
 
-    /* ===== NAV TABS ===== */
+
     .nav-tabs {
       display: flex;
       gap: 0;
@@ -94,11 +94,11 @@
       border-bottom-color: var(--accent);
     }
 
-    /* ===== VIEWS ===== */
+    /* VIEWS  */
     .view { display: none; padding: 20px; }
     .view.active { display: block; }
 
-    /* ===== BUTTONS ===== */
+    /*  BUTTONS */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -145,7 +145,7 @@
     }
     .btn-icon:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* ===== CARDS ===== */
+    
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -162,7 +162,7 @@
       margin-bottom: 16px;
     }
 
-    /* ===== STATS GRID ===== */
+    
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -202,7 +202,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* ===== REGISTRO FORM ===== */
+   
     .form-group { margin-bottom: 16px; }
     .form-label {
       display: block;
@@ -231,7 +231,7 @@
     }
     .form-textarea { min-height: 80px; resize: vertical; }
 
-    /* ===== CATEGORY ITEMS ===== */
+  
     .category-row {
       display: flex;
       align-items: center;
@@ -274,7 +274,7 @@
       color: var(--accent);
     }
 
-    /* ===== HISTORIAL ===== */
+    
     .registro-item {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -336,7 +336,7 @@
       margin-left: auto;
     }
 
-    /* ===== FOTOS ===== */
+    /* FOTOS  */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -389,7 +389,7 @@
     }
     .photo-add:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* ===== CATEGORIAS VIEW ===== */
+    
     .cat-list { display: flex; flex-direction: column; gap: 10px; }
     .cat-card {
       background: var(--surface);
@@ -415,7 +415,6 @@
       color: var(--accent);
     }
 
-    /* ===== MODAL LIGHTBOX ===== */
     .lightbox {
       display: none;
       position: fixed;
@@ -444,7 +443,7 @@
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* ===== MODAL FORM ===== */
+  
     .modal-overlay {
       display: none;
       position: fixed;
@@ -482,7 +481,7 @@
       margin-bottom: 20px;
     }
 
-    /* ===== EMPTY STATE ===== */
+  
     .empty-state {
       text-align: center;
       padding: 60px 20px;
@@ -492,7 +491,7 @@
     .empty-state h3 { font-size: 18px; color: var(--text); margin-bottom: 8px; }
     .empty-state p { font-size: 14px; }
 
-    /* ===== TOAST ===== */
+  
     .toast {
       position: fixed;
       bottom: 90px;
@@ -510,7 +509,7 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* ===== BOTTOM FAB ===== */
+  
     .fab {
       position: fixed;
       bottom: 24px;
@@ -532,7 +531,7 @@
     }
     .fab:hover { transform: scale(1.05); box-shadow: 0 12px 40px rgba(232,255,71,0.45); }
 
-    /* ===== ALERT BADGE ===== */
+
     .alert-badge {
       display: inline-flex;
       align-items: center;
@@ -591,7 +590,6 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo">ROPE<span>RO</span></div>
   <div class="header-actions">
@@ -599,7 +597,7 @@
   </div>
 </header>
 
-<!-- TABS -->
+
 <nav class="nav-tabs">
   <button class="tab-btn active" onclick="switchTab('dashboard', this)">📊 Inicio</button>
   <button class="tab-btn" onclick="switchTab('registro', this)">📋 Historial</button>
@@ -607,7 +605,6 @@
   <button class="tab-btn" onclick="switchTab('agregar', this)">＋ Registrar</button>
 </nav>
 
-<!-- ============ DASHBOARD ============ -->
 <div id="view-dashboard" class="view active">
   <div style="margin-bottom:20px;">
     <div style="font-size:12px;color:var(--muted);margin-bottom:4px;" id="fecha-hoy"></div>
@@ -651,7 +648,6 @@
   </div>
 </div>
 
-<!-- ============ HISTORIAL ============ -->
 <div id="view-registro" class="view">
   <h2 class="section-title">Historial</h2>
   <div class="search-bar">
@@ -660,20 +656,20 @@
   <div id="historial-list"></div>
 </div>
 
-<!-- ============ CATEGORIAS ============ -->
+
 <div id="view-categorias" class="view">
   <h2 class="section-title">Mi Ropa</h2>
   <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">Stock actual basado en todos los registros</p>
   <div class="cat-list" id="cat-list"></div>
 </div>
 
-<!-- ============ AGREGAR ============ -->
+
 <div id="view-agregar" class="view">
   <h2 class="section-title">Nuevo Registro</h2>
   <div id="form-inline"></div>
 </div>
 
-<!-- ============ MODAL ============ -->
+
 <div class="modal-overlay" id="modal">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
@@ -682,22 +678,22 @@
   </div>
 </div>
 
-<!-- LIGHTBOX -->
+
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
   <img id="lightbox-img" src="" alt="" />
 </div>
 
-<!-- FAB -->
+
 <button class="fab" onclick="openModal()">＋</button>
 
-<!-- TOAST -->
+
 <div class="toast" id="toast"></div>
 
 <input type="file" id="photoInput" accept="image/*" capture="environment" multiple />
 
 <script>
-// ===== DATA =====
+
 const CATEGORIAS = [
   { id: 'camisas',    emoji: '👔', nombre: 'Camisas',    alerta: 2 },
   { id: 'playeras',   emoji: '👕', nombre: 'Playeras',   alerta: 3 },
@@ -723,7 +719,7 @@ function getCurrentQty(catId) {
   return total;
 }
 
-// ===== TABS =====
+
 function switchTab(tab, btn) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -735,7 +731,6 @@ function switchTab(tab, btn) {
   if (tab === 'agregar') renderFormInline();
 }
 
-// ===== FORM BUILDER =====
 function buildForm(containerId, onSave) {
   const today = new Date().toISOString().split('T')[0];
   const qtys = {};
@@ -783,7 +778,7 @@ function buildForm(containerId, onSave) {
     </button>
   `;
 
-  // photo handler
+ 
   const photoInput = document.getElementById('photoInput');
   photoInput._target = containerId;
   photoInput.onchange = function() {
@@ -876,13 +871,12 @@ function saveForm(prefix) {
   buildForm(prefix); // reset
 }
 
-// ===== DASHBOARD =====
+
 function renderDashboard() {
   const db = loadDB();
   const now = new Date();
   document.getElementById('fecha-hoy').textContent = now.toLocaleDateString('es-MX', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).toUpperCase();
 
-  // stats
   let totalPrendas = 0;
   const catTotals = {};
   CATEGORIAS.forEach(c => { catTotals[c.id] = 0; });
@@ -902,7 +896,6 @@ function renderDashboard() {
   document.getElementById('stat-dias').textContent = diasActivos;
   document.getElementById('stat-bajo').textContent = stockBajo;
 
-  // alertas
   const alertasEl = document.getElementById('alertas-container');
   const bajos = CATEGORIAS.filter(c => c.alerta > 0 && catTotals[c.id] < c.alerta);
   if (bajos.length) {
@@ -915,7 +908,7 @@ function renderDashboard() {
     alertasEl.innerHTML = '';
   }
 
-  // cats
+
   const dcEl = document.getElementById('dashboard-cats');
   dcEl.innerHTML = CATEGORIAS.filter(c => catTotals[c.id] > 0).map(c => `
     <div class="category-row">
@@ -925,7 +918,7 @@ function renderDashboard() {
     </div>
   `).join('') || '<p style="color:var(--muted);font-size:14px;padding:8px 0;">Sin prendas registradas aún.</p>';
 
-  // último registro
+
   const urEl = document.getElementById('ultimo-registro');
   if (db.length === 0) {
     urEl.innerHTML = `<div class="empty-state" style="padding:20px 0;"><div class="emoji">📭</div><p>Sin registros aún</p></div>`;
@@ -940,7 +933,6 @@ function renderDashboard() {
   }
 }
 
-// ===== HISTORIAL =====
 function renderHistorial() {
   const db = loadDB();
   const q = (document.getElementById('search-input')?.value || '').toLowerCase();
@@ -1021,7 +1013,6 @@ function deleteReg(id) {
   showToast('🗑 Registro eliminado');
 }
 
-// ===== CATEGORIAS =====
 function renderCategorias() {
   const db = loadDB();
   const catTotals = {};
@@ -1044,13 +1035,12 @@ function renderCategorias() {
   }).join('');
 }
 
-// ===== INLINE FORM =====
+
 function renderFormInline() {
   document.getElementById('form-inline').innerHTML = '';
   buildForm('form-inline');
 }
 
-// ===== MODAL =====
 function openModal() {
   document.getElementById('modal-form-body').innerHTML = '';
   buildForm('modal-form-body');
@@ -1063,7 +1053,6 @@ document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
-// ===== LIGHTBOX =====
 function openLightbox(src) {
   document.getElementById('lightbox-img').src = src;
   document.getElementById('lightbox').classList.add('open');
@@ -1072,7 +1061,6 @@ function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
 }
 
-// ===== TOAST =====
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -1080,13 +1068,11 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// ===== UTILS =====
 function formatFecha(f) {
   const d = new Date(f + 'T12:00:00');
   return d.toLocaleDateString('es-MX', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 }
 
-// ===== INIT =====
 renderDashboard();
 </script>
 </body>
