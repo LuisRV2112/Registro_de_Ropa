@@ -692,7 +692,7 @@
 <button class="fab" onclick="openModal()">＋</button>
 
 <!-- TOAST -->
-<div class="toast" id="toast">✓ Guardado correctamente</div>
+<div class="toast" id="toast"></div>
 
 <input type="file" id="photoInput" accept="image/*" capture="environment" multiple />
 
@@ -747,11 +747,11 @@ function buildForm(containerId, onSave) {
   container.innerHTML = `
     <div class="form-group">
       <label class="form-label">📅 Fecha</label>
-      <input type="date" class="form-input" id="fi-fecha" value="${today}" />
+      <input type="date" class="form-input" id="${containerId}-fecha" value="${today}" />
     </div>
     <div class="form-group">
       <label class="form-label">📝 Nota (opcional)</label>
-      <textarea class="form-textarea" id="fi-nota" placeholder="Ej: Lavé la ropa del viaje..."></textarea>
+      <textarea class="form-textarea" id="${containerId}-nota" placeholder="Ej: Lavé la ropa del viaje..."></textarea>
     </div>
     <div class="form-group">
       <label class="form-label">👕 Cantidades por categoría</label>
