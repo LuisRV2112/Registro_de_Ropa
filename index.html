@@ -37,7 +37,7 @@
       overflow-x: hidden;
     }
 
-    
+    /* ===== HEADER ===== */
     header {
       position: sticky;
       top: 0;
@@ -61,7 +61,7 @@
 
     .header-actions { display: flex; gap: 10px; }
 
-    
+    /* ===== NAV TABS ===== */
     .nav-tabs {
       display: flex;
       gap: 0;
@@ -94,10 +94,11 @@
       border-bottom-color: var(--accent);
     }
 
+    /* ===== VIEWS ===== */
     .view { display: none; padding: 20px; }
     .view.active { display: block; }
 
-    
+    /* ===== BUTTONS ===== */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -144,7 +145,7 @@
     }
     .btn-icon:hover { border-color: var(--accent); color: var(--accent); }
 
-
+    /* ===== CARDS ===== */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -161,6 +162,7 @@
       margin-bottom: 16px;
     }
 
+    /* ===== STATS GRID ===== */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -200,7 +202,7 @@
       letter-spacing: 0.5px;
     }
 
-   
+    /* ===== REGISTRO FORM ===== */
     .form-group { margin-bottom: 16px; }
     .form-label {
       display: block;
@@ -229,7 +231,7 @@
     }
     .form-textarea { min-height: 80px; resize: vertical; }
 
-    
+    /* ===== CATEGORY ITEMS ===== */
     .category-row {
       display: flex;
       align-items: center;
@@ -272,7 +274,7 @@
       color: var(--accent);
     }
 
-  
+    /* ===== HISTORIAL ===== */
     .registro-item {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -334,7 +336,7 @@
       margin-left: auto;
     }
 
-   
+    /* ===== FOTOS ===== */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -387,7 +389,7 @@
     }
     .photo-add:hover { border-color: var(--accent); color: var(--accent); }
 
-   
+    /* ===== CATEGORIAS VIEW ===== */
     .cat-list { display: flex; flex-direction: column; gap: 10px; }
     .cat-card {
       background: var(--surface);
@@ -413,7 +415,7 @@
       color: var(--accent);
     }
 
- 
+    /* ===== MODAL LIGHTBOX ===== */
     .lightbox {
       display: none;
       position: fixed;
@@ -442,7 +444,7 @@
       display: flex; align-items: center; justify-content: center;
     }
 
-   
+    /* ===== MODAL FORM ===== */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -480,7 +482,7 @@
       margin-bottom: 20px;
     }
 
-   
+    /* ===== EMPTY STATE ===== */
     .empty-state {
       text-align: center;
       padding: 60px 20px;
@@ -490,7 +492,7 @@
     .empty-state h3 { font-size: 18px; color: var(--text); margin-bottom: 8px; }
     .empty-state p { font-size: 14px; }
 
-
+    /* ===== TOAST ===== */
     .toast {
       position: fixed;
       bottom: 90px;
@@ -748,7 +750,7 @@ const CATEGORIAS = [
   { id: 'calcetines', emoji: '🧦', nombre: 'Calcetines', alerta: 3 },
   { id: 'sudaderas',  emoji: '🧥', nombre: 'Sudaderas',  alerta: 1 },
   { id: 'pijamas',    emoji: '😴', nombre: 'Pijamas',    alerta: 1 },
-  { id: 'ropa_gym',   emoji: '👖', nombre: 'Pants',   alerta: 2 },
+  { id: 'ropa_gym',   emoji: '🏋️', nombre: 'Ropa Gym',   alerta: 2 },
   { id: 'otros',      emoji: '📦', nombre: 'Otros',      alerta: 0 },
 ];
 
@@ -1024,7 +1026,10 @@ function renderHistorial() {
             <div class="reg-title">${total} prendas registradas</div>
             <div class="reg-summary">${cats.slice(0,3).map(c=>`${c.emoji} ${c.nombre}`).join(' · ')}${cats.length>3?' · …':''}</div>
           </div>
-          <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteReg('${r.id}')">🗑</button>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();editReg('${r.id}')">✏️</button>
+            <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteReg('${r.id}')">🗑</button>
+          </div>
         </div>
         <div class="reg-detail">
           <div class="detail-grid">
@@ -1066,6 +1071,91 @@ function deleteReg(id) {
   renderDashboard();
   renderCategorias();
   showToast('🗑 Registro eliminado');
+}
+
+// ===== EDITAR REGISTRO =====
+function editReg(id) {
+  const db = loadDB();
+  const reg = db.find(r => String(r.id) === String(id));
+  if (!reg) return;
+
+  // Build edit modal
+  const modal = document.getElementById('modal');
+  const body = document.getElementById('modal-form-body');
+  document.querySelector('.modal-title').textContent = '✏️ Editar Registro';
+
+  body.innerHTML = `
+    <div class="form-group">
+      <label class="form-label">📅 Fecha</label>
+      <input type="date" class="form-input" id="edit-fecha" value="${reg.fecha}" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">📝 Nota (opcional)</label>
+      <textarea class="form-textarea" id="edit-nota" placeholder="Ej: Lavé la ropa del viaje...">${reg.nota || ''}</textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">👕 Cantidades por categoría</label>
+      <div>
+        ${CATEGORIAS.map(c => `
+          <div class="category-row">
+            <div class="category-emoji">${c.emoji}</div>
+            <div class="category-name">${c.nombre}</div>
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQtyEdit('${c.id}',-1)">−</button>
+              <div class="qty-value" id="edit-qty-${c.id}">${reg.items[c.id] || 0}</div>
+              <button class="qty-btn" onclick="changeQtyEdit('${c.id}',1)">＋</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button class="btn btn-outline" style="flex:1;justify-content:center;" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" style="flex:2;justify-content:center;" onclick="saveEditReg('${id}')">💾 Guardar Cambios</button>
+    </div>
+  `;
+
+  modal.classList.add('open');
+}
+
+function changeQtyEdit(catId, delta) {
+  const el = document.getElementById('edit-qty-' + catId);
+  if (!el) return;
+  let v = parseInt(el.textContent) + delta;
+  if (v < 0) v = 0;
+  el.textContent = v;
+}
+
+function saveEditReg(id) {
+  const fecha = document.getElementById('edit-fecha')?.value;
+  if (!fecha) { showToast('❌ Selecciona una fecha'); return; }
+
+  const items = {};
+  let total = 0;
+  CATEGORIAS.forEach(c => {
+    const v = parseInt(document.getElementById('edit-qty-' + c.id)?.textContent || '0');
+    items[c.id] = v;
+    total += v;
+  });
+
+  if (total === 0) { showToast('⚠️ Agrega al menos una prenda'); return; }
+
+  const nota = document.getElementById('edit-nota')?.value || '';
+
+  let db = loadDB();
+  const idx = db.findIndex(r => String(r.id) === String(id));
+  if (idx === -1) { showToast('❌ Registro no encontrado'); return; }
+
+  // Keep photos intact, only update editable fields
+  db[idx] = { ...db[idx], fecha, nota, items, updatedAt: new Date().toISOString() };
+  saveDB(db);
+
+  closeModal();
+  document.querySelector('.modal-title').textContent = '➕ Nuevo Registro';
+  showToast('✓ Registro actualizado');
+  renderHistorial();
+  renderDashboard();
+  renderCategorias();
 }
 
 // ===== CATEGORIAS =====
